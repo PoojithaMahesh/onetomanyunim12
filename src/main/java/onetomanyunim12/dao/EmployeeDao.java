@@ -38,4 +38,65 @@ public class EmployeeDao {
 		System.out.println("Sorry id is not present");
 	}
 	}
+	
+	
+	
+	public void updateEmployee(int id,Employee employee) {
+		EntityManager entityManager=getEntityManager();
+		Employee dbEmployee=entityManager.find(Employee.class, id);
+		if(dbEmployee!=null) {
+//			id is present
+			EntityTransaction entityTransaction=entityManager.getTransaction();
+			entityTransaction.begin();
+			
+			employee.setId(id);
+			entityManager.merge(employee);
+			entityTransaction.commit();
+		}else {
+			System.out.println("Sorry id is not present to update");
+		}
+	}
+	
+	public void deleteEmployee(int id) {
+		EntityManager entityManager=getEntityManager();
+		Employee dbEmployee=entityManager.find(Employee.class, id);
+		if(dbEmployee!=null) {
+//			id is present
+			EntityTransaction entityTransaction=entityManager.getTransaction();
+			entityTransaction.begin();
+			entityManager.remove(dbEmployee);
+			entityTransaction.commit();
+		}else {
+			System.out.println("Sorry id is not present to delete");
+		}
+	}
+	
+	
+	public void findEmployee(int id) {
+		EntityManager entityManager=getEntityManager();
+		Employee dbEmployee=entityManager.find(Employee.class, id);
+		if(dbEmployee!=null) {
+//			id is present
+		System.out.println(dbEmployee);
+		}else {
+			System.out.println("Sorry id is not present to fetch");
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
